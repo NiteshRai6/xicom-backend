@@ -13,7 +13,7 @@ const CandidateSchema = new mongoose.Schema({
     dateOfBirth: { type: Date, required: true },
     residentialAddress: {
         street1: { type: String, required: true },
-        street2: { type: String },
+        street2: { type: String, required: true },
     },
     permanentAddress: {
         street1: { type: String },

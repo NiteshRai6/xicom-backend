@@ -2,7 +2,13 @@ import Candidate from '../models/candidateModel.js';
 
 export default async function createCandidate(req, res) {
     try {
-        const { firstName, lastName, email, dateOfBirth, residentialAddress, permanentAddress, isSameAsResidential, documents } = req.body;
+        const { firstName, lastName, email, dateOfBirth, residentialAddress, permanentAddress, isSameAsResidential } = req.body;
+
+        const documents = req.files.map(file => ({
+            fileName: file.originalname,
+            fileType: file.mimetype.includes('pdf') ? 'pdf' : 'image',
+            filePath: file.path,
+        }));
 
         if (isSameAsResidential) {
             permanentAddress.street1 = residentialAddress.street1;
