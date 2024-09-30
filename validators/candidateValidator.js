@@ -12,6 +12,6 @@ export const validateCandidate = [
         }
         return true;
     }),
-    body('documents').isArray({ min: 2 }).withMessage('At least 2 documents are required'),
+    // body('documents').isArray({ min: 2 }).withMessage('At least 2 documents are required'),
     validateInputs,
 ];
