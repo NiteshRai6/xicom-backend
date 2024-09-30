@@ -2,7 +2,7 @@ import Candidate from '../models/candidateModel.js';
 
 export default async function createCandidate(req, res) {
     try {
-        const { firstName, lastName, dateOfBirth, residentialAddress, permanentAddress, isSameAsResidential, documents } = req.body;
+        const { firstName, lastName, email, dateOfBirth, residentialAddress, permanentAddress, isSameAsResidential, documents } = req.body;
 
         if (isSameAsResidential) {
             permanentAddress.street1 = residentialAddress.street1;
@@ -12,6 +12,7 @@ export default async function createCandidate(req, res) {
         const candidate = new Candidate({
             firstName,
             lastName,
+            email,
             dateOfBirth,
             residentialAddress,
             permanentAddress: isSameAsResidential ? null : permanentAddress,
