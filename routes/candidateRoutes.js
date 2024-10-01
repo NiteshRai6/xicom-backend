@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post(
     '/candidates',
-    upload.array('documents', 10),
+    upload,
     validateCandidate,
     createCandidate
 );

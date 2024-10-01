@@ -1,6 +1,10 @@
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -31,7 +35,17 @@ const fileFilter = (req, file, cb) => {
 
 export const upload = multer({
     storage,
-    limits: { fileSize: 5 * 1024 * 1024 },
+    limits: { fileSize: 15 * 1024 * 1024 },
     fileFilter,
-});
-
+}).fields([
+    { name: 'documents[0][file]', maxCount: 1 },
+    { name: 'documents[1][file]', maxCount: 1 },
+    { name: 'documents[2][file]', maxCount: 1 },
+    { name: 'documents[3][file]', maxCount: 1 },
+    { name: 'documents[4][file]', maxCount: 1 },
+    { name: 'documents[5][file]', maxCount: 1 },
+    { name: 'documents[6][file]', maxCount: 1 },
+    { name: 'documents[7][file]', maxCount: 1 },
+    { name: 'documents[8][file]', maxCount: 1 },
+    { name: 'documents[9][file]', maxCount: 1 },
+]);

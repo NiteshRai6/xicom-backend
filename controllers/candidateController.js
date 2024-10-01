@@ -4,11 +4,24 @@ export default async function createCandidate(req, res) {
     try {
         const { firstName, lastName, email, dateOfBirth, residentialAddress, permanentAddress, isSameAsResidential } = req.body;
 
-        const documents = req.files.map(file => ({
-            fileName: file.originalname,
-            fileType: file.mimetype.includes('pdf') ? 'pdf' : 'image',
-            filePath: file.path,
-        }));
+        if (!req.files || Object.keys(req.files).length === 0) {
+            return res.status(400).json({ message: 'No documents were uploaded.' });
+        }
+
+        const documents = [];
+
+        Object.keys(req.files).forEach((key) => {
+            const file = req.files[key][0];
+
+            const fileType = file.mimetype.startsWith('image') ? 'image' : 'pdf';
+
+            documents.push({
+                fileName: file.originalname,
+                fileType: fileType,
+                filePath: file.path,
+                size: file.size,
+            });
+        });
 
         if (isSameAsResidential) {
             permanentAddress.street1 = residentialAddress.street1;
@@ -27,9 +40,10 @@ export default async function createCandidate(req, res) {
         });
 
         await candidate.save();
-        res.status(201).json(
-            { message: 'Candidate created successfully', candidate });
+
+        res.status(201).json({ message: 'Candidate created successfully', candidate });
     } catch (err) {
+        console.error('Error creating candidate:', err);
         res.status(500).json({ error: err.message });
     }
-};
+}

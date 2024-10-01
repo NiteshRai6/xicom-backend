@@ -3,16 +3,16 @@ import mongoose from 'mongoose';
 const DocumentSchema = new mongoose.Schema({
     fileName: {
         type: String,
-        // required: true
+        required: true
     },
     fileType: {
         type: String,
         enum: ['image', 'pdf'],
-        // required: true
+        required: true
     },
     filePath: {
         type: String,
-        // required: true
+        required: true
     },
 });
 
@@ -36,11 +36,11 @@ const CandidateSchema = new mongoose.Schema({
     residentialAddress: {
         street1: {
             type: String,
-            // required: true
+            required: true
         },
         street2: {
             type: String,
-            // required: true
+            required: true
         },
     },
     permanentAddress: {
@@ -53,7 +53,7 @@ const CandidateSchema = new mongoose.Schema({
     },
     documents: {
         type: [DocumentSchema],
-        // validate: v => v.length >= 2
+        validate: v => v.length >= 2
     },
 },
     { timestamps: true }
